@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Chain Link入门 - stone-github Blog</title><meta name="Description" content="About LoveIt Theme"><meta property="og:title" content="Chain Link入门" />
+<meta property="og:description" content="1. Chain Link的作用 由于区块链上只有转账和计算数据，其他的数据都要由其他人输入，因此区块链需要一种提供可靠数据的服务。Chain Link给区块链提供了可靠的现实世界的数据，例如ETH对USD的价格、ETH对BTC的价格。Chain Link本身搭建了一个POS的区块链，在其他链上（例如以太坊）可以调用Chain Link提供的代理（proxy）智能合约来获取现实世界中的数据。
+在这里介绍一个在Rinkeby Testnet上面获取ETH价格的智能合约。本教程基于Chain Link提供的在Kovan Testnet上的教程
+2. 支持 首先要在MetaMask中切换到测试网络Rinkeby，并且在测试网络中获得免费的LINK和ETH（领取网址）。
+之后需要找到Rinkeby网络中提供ETH / USD价格数据的只能合约地址，也就是：
+1  0x8A753747A1Fa494EC906cE90E9f37563A8AF630e  全部的合约地址的列表可以在Chain Link的网站上面获取。 整个合约使用Remix，并且在部署合约的时候使用Rinkeby网络，也就是选择Injected Web3。这样就可以使用Metamask进行确认，实际体验和真实的区块链相同。
+3. 合约部署 整个合约的代码如下。可以看到整个代码非常简单，只需要用AggregatorV3Interface调用对应地址的智能合约就可以获得价格priceFeed。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32  // SPDX-License-Identifier: MITpragma solidity ^0.8.7;import &#34;@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol&#34;;contract PriceConsumerV3 {AggregatorV3Interface internal priceFeed;/*** Network: Rinkeby* Aggregator: ETH/USD* Address: 0x8A753747A1Fa494EC906cE90E9f37563A8AF630e*/constructor() {priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);}/*** Returns the latest price*/function getLatestPrice() public view returns (int) {(uint80 roundID, int price,uint startedAt,uint timeStamp,uint80 answeredInRound) = priceFeed." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://stone-github.github.io/posts/chain_link_intro/" />
+<meta property="og:image" content="https://stone-github.github.io/logo.png"/>
+<meta property="article:published_time" content="2022-02-22T08:53:08+08:00" />
+<meta property="article:modified_time" content="2022-02-22T08:53:08+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://stone-github.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Chain Link入门"/>
+<meta name="twitter:description" content="1. Chain Link的作用 由于区块链上只有转账和计算数据，其他的数据都要由其他人输入，因此区块链需要一种提供可靠数据的服务。Chain Link给区块链提供了可靠的现实世界的数据，例如ETH对USD的价格、ETH对BTC的价格。Chain Link本身搭建了一个POS的区块链，在其他链上（例如以太坊）可以调用Chain Link提供的代理（proxy）智能合约来获取现实世界中的数据。
+在这里介绍一个在Rinkeby Testnet上面获取ETH价格的智能合约。本教程基于Chain Link提供的在Kovan Testnet上的教程
+2. 支持 首先要在MetaMask中切换到测试网络Rinkeby，并且在测试网络中获得免费的LINK和ETH（领取网址）。
+之后需要找到Rinkeby网络中提供ETH / USD价格数据的只能合约地址，也就是：
+1  0x8A753747A1Fa494EC906cE90E9f37563A8AF630e  全部的合约地址的列表可以在Chain Link的网站上面获取。 整个合约使用Remix，并且在部署合约的时候使用Rinkeby网络，也就是选择Injected Web3。这样就可以使用Metamask进行确认，实际体验和真实的区块链相同。
+3. 合约部署 整个合约的代码如下。可以看到整个代码非常简单，只需要用AggregatorV3Interface调用对应地址的智能合约就可以获得价格priceFeed。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32  // SPDX-License-Identifier: MITpragma solidity ^0.8.7;import &#34;@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol&#34;;contract PriceConsumerV3 {AggregatorV3Interface internal priceFeed;/*** Network: Rinkeby* Aggregator: ETH/USD* Address: 0x8A753747A1Fa494EC906cE90E9f37563A8AF630e*/constructor() {priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);}/*** Returns the latest price*/function getLatestPrice() public view returns (int) {(uint80 roundID, int price,uint startedAt,uint timeStamp,uint80 answeredInRound) = priceFeed."/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://stone-github.github.io/posts/chain_link_intro/" /><link rel="prev" href="https://stone-github.github.io/posts/advance_metamask/" /><link rel="next" href="https://stone-github.github.io/posts/qidao/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Chain Link入门",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/stone-github.github.io\/posts\/chain_link_intro\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/stone-github.github.io\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "编程","wordcount":  122 ,
+        "url": "https:\/\/stone-github.github.io\/posts\/chain_link_intro\/","datePublished": "2022-02-22T08:53:08+08:00","dateModified": "2022-02-22T08:53:08+08:00","publisher": {
+            "@type": "Organization",
+            "name": "stone"},"author": {
+                "@type": "Person",
+                "name": "stone"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="stone-github Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>Stone Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/categories/documentation/"> Docs </a><a class="menu-item" href="https://github.com/stone-github" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="stone-github Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>Stone Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/categories/documentation/" title="">Docs</a><a class="menu-item" href="https://github.com/stone-github" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Chain Link入门</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>stone</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blog/"><i class="far fa-folder fa-fw"></i>blog</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-22">2022-02-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;122 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-chain-link的作用">1. Chain Link的作用</a></li>
+        <li><a href="#2-支持">2. 支持</a></li>
+        <li><a href="#3-合约部署">3. 合约部署</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="1-chain-link的作用">1. Chain Link的作用</h3>
+<p>由于区块链上只有转账和计算数据，其他的数据都要由其他人输入，因此区块链需要一种提供可靠数据的服务。Chain Link给区块链提供了可靠的现实世界的数据，例如ETH对USD的价格、ETH对BTC的价格。Chain Link本身搭建了一个POS的区块链，在其他链上（例如以太坊）可以调用Chain Link提供的代理（proxy）智能合约来获取现实世界中的数据。</p>
+<p>在这里介绍一个在Rinkeby Testnet上面获取ETH价格的智能合约。本教程基于Chain Link提供的在Kovan Testnet上的<a href="https://docs.chain.link/docs/consuming-data-feeds/" target="_blank" rel="noopener noreffer">教程</a></p>
+<h3 id="2-支持">2. 支持</h3>
+<p>首先要在MetaMask中切换到测试网络Rinkeby，并且在测试网络中获得免费的LINK和ETH（<a href="https://faucets.chain.link/rinkeby" target="_blank" rel="noopener noreffer">领取网址</a>）。</p>
+<p>之后需要找到Rinkeby网络中提供ETH / USD价格数据的只能合约地址，也就是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
+</code></pre></td></tr></table>
+</div>
+</div><p>全部的合约地址的列表可以在<a href="https://docs.chain.link/docs/ethereum-addresses/" target="_blank" rel="noopener noreffer">Chain Link的网站</a>上面获取。
+整个合约使用Remix，并且在部署合约的时候使用Rinkeby网络，也就是选择Injected Web3。这样就可以使用Metamask进行确认，实际体验和真实的区块链相同。</p>
+<h3 id="3-合约部署">3. 合约部署</h3>
+<p>整个合约的代码如下。可以看到整个代码非常简单，只需要用AggregatorV3Interface调用对应地址的智能合约就可以获得价格priceFeed。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-solidity" data-lang="solidity"><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="c1"></span><span class="kr">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">7</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="s">&#34;@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol&#34;</span><span class="p">;</span>
+
+<span class="kd">contract</span> <span class="n">PriceConsumerV3</span> <span class="p">{</span>
+
+    <span class="n">AggregatorV3Interface</span> <span class="kr">internal</span> <span class="n">priceFeed</span><span class="p">;</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * Network: Rinkeby
+</span><span class="cm">     * Aggregator: ETH/USD
+</span><span class="cm">     * Address: 0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
+</span><span class="cm">     */</span>
+    <span class="n">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">priceFeed</span> <span class="o">=</span> <span class="n">AggregatorV3Interface</span><span class="p">(</span><span class="mh">0x8A753747A1Fa494EC906cE90E9f37563A8AF630e</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * Returns the latest price
+</span><span class="cm">     */</span>
+    <span class="kd">function</span> <span class="n">getLatestPrice</span><span class="p">()</span> <span class="kr">public</span> <span class="kr">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">(</span>
+            <span class="kt">uint80</span> <span class="n">roundID</span><span class="p">,</span> 
+            <span class="kt">int</span> <span class="n">price</span><span class="p">,</span>
+            <span class="kt">uint</span> <span class="n">startedAt</span><span class="p">,</span>
+            <span class="kt">uint</span> <span class="n">timeStamp</span><span class="p">,</span>
+            <span class="kt">uint80</span> <span class="n">answeredInRound</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">priceFeed</span><span class="p">.</span><span class="n">latestRoundData</span><span class="p">();</span>
+        <span class="k">return</span> <span class="n">price</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>部署完成后可以点击getLatestPrice就可以得到ETH的价格，如下：</p>
+<p align="center">
+  <img src="pic\getprice.png" alt="getprice"  />
+</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-02-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/chain_link_intro/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%BC%96%E7%A8%8B/">编程</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/advance_metamask/" class="prev" rel="prev" title="MetaMask实践：在测试网络上交易"><i class="fas fa-angle-left fa-fw"></i>MetaMask实践：在测试网络上交易</a>
+            <a href="/posts/qidao/" class="next" rel="next" title="QiDao 介绍">QiDao 介绍<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="utterances"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"stone-github/HugoTalk"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

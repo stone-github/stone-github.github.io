@@ -3,7 +3,7 @@
         <title>stone-github Blog</title>
         <link>https://stone-github.github.io/</link>
         <description>About LoveIt Theme</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 05 Feb 2022 23:20:08 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 27 Feb 2022 08:53:08 &#43;0800</lastBuildDate>
             <atom:link href="https://stone-github.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>写在前面</title>
@@ -14,6 +14,44 @@
     <description><![CDATA[博客的一些想法 此博客想分享一些使用区块链的心得和感受。这个博客介绍一下几个方面：
  defi的一些基础使用方法和教程 一些defi金融模型的分析 区块链服务的一些使用教程 区块链的代码开发（如果有时间的话）  如果想联系我：
  邮箱 GitHub  ]]></description>
+</item><item>
+    <title>Anchor杠杆</title>
+    <link>https://stone-github.github.io/posts/anchor_leverage/</link>
+    <pubDate>Sun, 27 Feb 2022 08:53:08 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://stone-github.github.io/posts/anchor_leverage/</guid>
+    <description><![CDATA[1. Anchor加杠杆步骤  在Anchor中存放UST，获得aUST 在mirror中将aUST当作质押，获得mKO（可口可乐股票）股票的空投头寸 将MKO出售，获得UST然后重新放入Anchor  以上就是获得一轮Anchor杠杆的过程，如果想提高APY可以重复上述步骤，增加自己的杠杆。
+2. 风险计算 根据一个UP主的计算：
+ 如果mKO保持平稳，大约有$70\%$的APY 如果mKO一年涨幅$15\%$，大约有$30\%$的APY 如果mKO一年涨幅$20\%$，则只有$19\%$的APY 如果mKO下跌$7\%$，则会达到$100\%$的APY  之后我会验证一下这个计算是否准确]]></description>
+</item><item>
+    <title>QiDao 介绍</title>
+    <link>https://stone-github.github.io/posts/qidao/</link>
+    <pubDate>Sun, 27 Feb 2022 08:53:08 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://stone-github.github.io/posts/qidao/</guid>
+    <description><![CDATA[QiDao平台是一个集杠杆、发行稳定币、质押带息资产与一身的平台。
+1. 质押资产 1.1 质押Qi Qi是QiDao的投票权币。持有Qi会获得Qi Powah，也就是投票权。此外Qi可以放在平台内质押，质押后可以获得eQi和更多的投票权（Qi Powah）。锁定质押时间（期间不能取出）越长获得的eQi和投票权越多。
+质押过程中可以得到平台约100%的APY回报，这个回报如何收取我还没找到，猜测可能是每周airdrop到钱包中。
+1.2 质押金库（Vault） 首先要参与质押金库需要创建想要参加的质押金库，也就是说每参与一种新的质押金库就需要交一笔手续费，这个和其他平台有所不同，我见到的大部分平台都可以直接开始质押不用创建。
+可以在金库中质押代币或带息资产。camToken是Aave平台提供的金融产品，dQUICK是QuickSwap提供的金融产品。我个人觉得dQUICK是一个不错的选择，但是我在matic上面使用较少所以我还是先使用Matic质押到金库中试试。
+创建金库的教程
+2. 发行（Borrow）稳定币和清算规则 在创建了质押金库之后可以根据质押资产的额度发行一定量的稳定币MAI。在理解能发行多少MAI之前，要理解一个概念：资产负债比（collateral to debt ratio, CDR）。资产负债比说的是质押的总资产和比上发行的MAI，以Matic为例公式如下： $$ CDR = (n_{matic} * P_{matic})/n_{mai} $$ 其中$n_{matic}$为质押的matic数量$P_{matic}$为matic的币价$n_{mai}$为发行的MAI数量（由于MAI是稳定币因此比价为1）。
+知道了CDR也就可以讨论能发行的MAI数量和清算规则。在创建Vault时，如下界面会显示出清算的CDR，也就是说当CDR到达了$150\%$时质押的Matic就会被清算。清算也就是说再也拿不回来了，被平台收走了。也就是说释放的MAI数量必须小于质押资产量除以$CDR_{mim}$，以Matic为例公式如下： $$ n_{mai} &lt; (n_matic * P_matic)/ CDR_{mim} $$
+3. 贷款奖励 为了激励平台的使用者发行MAI，因此平台会对使用者进行一些奖励。以Matic的质押金库为例，CDR在$170\%-420\%$之间平台会根据借出的MAI奖励APY为$12.97\%$的Qi（注意这个APY是根据借出的MAi来计算的）。具体来说如果质押了100刀的Matic那么可以借出$24-58$个MAI，可以获得奖励。
+发放的Qi会直接空投到钱包中，这一点非常方便。]]></description>
+</item><item>
+    <title>Chain Link入门</title>
+    <link>https://stone-github.github.io/posts/chain_link_intro/</link>
+    <pubDate>Tue, 22 Feb 2022 08:53:08 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://stone-github.github.io/posts/chain_link_intro/</guid>
+    <description><![CDATA[1. Chain Link的作用 由于区块链上只有转账和计算数据，其他的数据都要由其他人输入，因此区块链需要一种提供可靠数据的服务。Chain Link给区块链提供了可靠的现实世界的数据，例如ETH对USD的价格、ETH对BTC的价格。Chain Link本身搭建了一个POS的区块链，在其他链上（例如以太坊）可以调用Chain Link提供的代理（proxy）智能合约来获取现实世界中的数据。
+在这里介绍一个在Rinkeby Testnet上面获取ETH价格的智能合约。本教程基于Chain Link提供的在Kovan Testnet上的教程
+2. 支持 首先要在MetaMask中切换到测试网络Rinkeby，并且在测试网络中获得免费的LINK和ETH（领取网址）。
+之后需要找到Rinkeby网络中提供ETH / USD价格数据的只能合约地址，也就是：
+1  0x8A753747A1Fa494EC906cE90E9f37563A8AF630e  全部的合约地址的列表可以在Chain Link的网站上面获取。 整个合约使用Remix，并且在部署合约的时候使用Rinkeby网络，也就是选择Injected Web3。这样就可以使用Metamask进行确认，实际体验和真实的区块链相同。
+3. 合约部署 整个合约的代码如下。可以看到整个代码非常简单，只需要用AggregatorV3Interface调用对应地址的智能合约就可以获得价格priceFeed。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32  // SPDX-License-Identifier: MITpragma solidity ^0.8.7;import &#34;@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol&#34;;contract PriceConsumerV3 {AggregatorV3Interface internal priceFeed;/*** Network: Rinkeby* Aggregator: ETH/USD* Address: 0x8A753747A1Fa494EC906cE90E9f37563A8AF630e*/constructor() {priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);}/*** Returns the latest price*/function getLatestPrice() public view returns (int) {(uint80 roundID, int price,uint startedAt,uint timeStamp,uint80 answeredInRound) = priceFeed.]]></description>
 </item><item>
     <title>MetaMask实践：在测试网络上交易</title>
     <link>https://stone-github.github.io/posts/advance_metamask/</link>
@@ -45,11 +83,11 @@
 3. 购买加密货币 如果想要使用人民币购买加密货币可以点击上方的一键买币，然后点击自选区进行购买。一定不要选择快捷区购买，否则购买到的货币会比市场价格贵很多。
 可以看到有卖币的USDT商家出价。上面显示需要银行卡转账购买，还可以选择是支付宝购买或者微信购买。在购买的过程中你需要将人民币转给卖家，因此在中国会收到反诈中心的电话，电话可能会问一些问题，或者警告你不要进行转账。在币安买币只要操作正确是不会被诈骗的，因为卖家在卖给你USDT的时候币安会锁住他的USDT防止他收到人民币之后不放款。
 4. 金融产品 币安很重要的特点在于金融产品，也就是右上角的理财。点击币安理财可以看到所有的理财产品。对于新手而言加密货币需要学习的知识非常多，普通的理财产品是收益最优保障而且对于利润计算有一定锻炼的项目，如果这些简单的理财产品都没看明白，复杂的DeFi收益计算更别想看明白。下面我介绍一些比较使用的理财产品。
-4.1 币安宝 一看“币安宝”这个名字就知道他跟余额宝差不多。但是打开之后你会发现币安宝的利息碾压余额宝，而且人家是在美元的基础上生成利息。高达$7/%$的利息也不是能无限存钱的，BUSD的存款上限为/$500，USDT的存款上限为/$2000。因此大约能存1万多块钱到里面去享受$7/%$的利息。这个存款我强烈建议所有新手都要订阅。
+4.1 币安宝 一看“币安宝”这个名字就知道他跟余额宝差不多。但是打开之后你会发现币安宝的利息碾压余额宝，而且人家是在美元的基础上生成利息。高达$7\%$的利息也不是能无限存钱的，BUSD的存款上限为500，USDT的存款上限为2000。因此大约能存1万多块钱到里面去享受$7\%$的利息。这个存款我强烈建议所有新手都要订阅。
 除了这个活期存款，币安还有定期存款和一些存款活动，如果朋友有长期持有的加密货币可以放到定期存款里面去，但是定期存款支持的币种非常少因此不要报太大的指望。
-4.2 BNB收益池 个人认为BNB收益池也算是一个不错的理财项目。在BNB收益池里面可以将BNB存入并且获得大约$3/%$的收入。这个收益是由币安交易所新上的货币和存款本身的收益组成的。目前币安刚刚新上了一个货币ANC，因此质押BNB到BNB收益池的用户获得分发的ANC然后折算成BNB。
+4.2 BNB收益池 个人认为BNB收益池也算是一个不错的理财项目。在BNB收益池里面可以将BNB存入并且获得大约$3\%$的收入。这个收益是由币安交易所新上的货币和存款本身的收益组成的。目前币安刚刚新上了一个货币ANC，因此质押BNB到BNB收益池的用户获得分发的ANC然后折算成BNB。
 4.3 质押（Staking） 质押本质上和定期存款差不多，但是风险会稍微高一点点。因为质押是将货币放在区块链上质押收益都是由去中心化的平台产生的，币安并不负责运营这些平台，因此风险会稍微高一点。
-除了质押这个选项我们还可以看到DeFi挖矿这个理财方式，这个理财方式跟质押的风险一样，但是货币都是比较主流的货币。可以看到BNB在DeFi挖矿中的收益由$5/%$因此如果由BNB使用这种理财方式也是非常好的。
+除了质押这个选项我们还可以看到DeFi挖矿这个理财方式，这个理财方式跟质押的风险一样，但是货币都是比较主流的货币。可以看到BNB在DeFi挖矿中的收益由$5\%$因此如果由BNB使用这种理财方式也是非常好的。
 4.4 其他 双币投资是一种风险控制产品，应该是期货里面使用的一种理财产品，但是我觉得在加密货币这种价格浮动过大，没人愿意控制风险的大环境下，这种理财产品应该也没有太多市场。最多就是用来控制一下BTC和ETH的风险，感觉其他也没大用。当然，这里的风险控制我认为之后可以详细出一个数学模型来分析。
 流动性挖矿是DeFi里面去中心化交易所使用的概念，详情可以参考这一篇博客]]></description>
 </item><item>
