@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: stone-github.github.io
+Token: 5b1ce7f8868a65b07002605e98c85d7ec41d6d336d398f046a8413d8d06f09d0

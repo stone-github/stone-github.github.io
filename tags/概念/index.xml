@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>概念 - Tag - stone-github Blog</title>
+        <link>https://stone-github.github.io/tags/%E6%A6%82%E5%BF%B5/</link>
+        <description>概念 - Tag - stone-github Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 24 Jan 2022 17:53:08 &#43;0800</lastBuildDate><atom:link href="https://stone-github.github.io/tags/%E6%A6%82%E5%BF%B5/" rel="self" type="application/rss+xml" /><item>
+    <title>Liquidity Provider以及Impermanent loss分析</title>
+    <link>https://stone-github.github.io/posts/liquidity-provider/</link>
+    <pubDate>Mon, 24 Jan 2022 17:53:08 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://stone-github.github.io/posts/liquidity-provider/</guid>
+    <description><![CDATA[1. 背景 为了实现去中心化交易平台（decentralize exchange），交易平台需要有一个流动资金池（Liquidity Pool）。由于交易平台的功能就是币币交易，因此该资金池内需要有交易的两种货币，比如10个BNB和200个CAKE。当一个需要CAKE币的人手上有BNB的时候，就把自己的BNB送入流动资金池内，然后取出对应的CAKE。
+进行币币交易的人需要缴纳一定的手续费给流动资金池。这些手续费就按比例分配给流动资金池中的每一个提供者（Liquidity Provider）
+2. 流动资金池分析 在上面的例子中可以看到流动资金池的两种货币的数量会发生变化。实际上，正是资金池内两种货币的数量发生了变化，因此导致了币币交易之间的汇率不同。
+举例来说，本来一个流动资金池内两种货币有200个CAKE和10个BNB，这个时候1个BNB值20个CAKE。现在有一个人想换20个CAKE，他将一个BNB放入流动资金池，然后从中取出20个CAKE。现在流动资金池内有180个CAKE和11个BNB，那么这时1个BNB值16.4个CAKE。
+上面的例子夸张的突出了汇率的变化，在实际交易过程中每一笔交易相较于流动资金池的总量都不足以引起汇率的变化（就像股票市场上一两个散户的交易不会影响股价）。
+流动资金池在实际交易过程中会符合XYK原则，也就是说流动资金池内两种货币的数量X、Y满足$X \times Y = K$，其中K是常数。也就是说货币数量X和Y满足反比例函数的关系，如下图。每一次交易就是一次在该曲线上的移动。但是由于每次的交易数量都非常小，因此在使用极限的思想可以认为每次交易的汇率都是当前点的斜率。
+3. 收益分析 当加密货币的持有者选择将资金放入流动资金池时可以赚取手续费作为回报，通常这个回报非常高，年收益高达50%-300%。但是当资金进入流动资金池时，存入的数量和取出来的数量会不等（从上面的例子可以看出），此外取出来的加密货币对应法币的价值也有差异，这些变化带来的损失就是永久损失（permanent loss）。
+计算永久损失的过程比较复杂，可以直接跳到最后查看结论。
+3.1 收益计算 为了量化非永久损失，假设投资者放入了A货币X个和B货币Y个。此时1个A货币的价值为$x_p$个美元，1个B货币的价值为 $y_p$个美元。那么投资者的总资产为$T = X x_p + Y y_p$。所有都的变量满足如下的等式：
+$$\begin{cases}XY = K\\Xx_p = Yy_p\end{cases}$$解得：
+$$\begin{cases}X = \sqrt{\frac{K y_p}{x_p}}\\Y = \sqrt{\frac{K x_p}{y_p}}\\T = 2\sqrt{Kx_p y_p}\\\end{cases}$$之后经过变化，如果1个A货币的价格变为$x_p'$美元，1个B货币的价格变为$y_p'$个美元。那么同样联立类似的方程组，解得：$$\begin{cases}X' = \sqrt{\frac{K y_p'}{x_p'}}\\Y' = \sqrt{\frac{K x_p'}{y_p'}}\\T' = 2\sqrt{Kx_p' y_p'}\\\end{cases}$$如果这个人不把资金放入流动资金池，那么他的总资产如下：$$\begin{cases}X'' = \sqrt{\frac{K y_p}{x_p}}\\Y'' = \sqrt{\frac{K x_p}{y_p}}\\T'' = \frac{\sqrt{K}( x_p' y_p + y_p' x_p)}{\sqrt{x_p y_p}}\end{cases}$$将总资产的变化总结成一下表格：    投入流动资金池 不投入流动资金池     开始资金 $T = 2\sqrt{Kx_p y_p}$ $T = 2\sqrt{Kx_p y_p}$   结束资金 $T&rsquo; = 2\sqrt{Kx_p&rsquo; y_p&rsquo;}$ $T&rsquo;&rsquo; = \frac{\sqrt{K}( x_p&rsquo; y_p + y_p&rsquo; x_p)}{\sqrt{x_p y_p}}$   资金比值 $ r = \frac{\sqrt{x_p&rsquo; y_p&rsquo;}}{\sqrt{x_p y_p}}$ $r = \frac{x_p&rsquo; y_p + y_p&rsquo; x_p}{2x_py_p}$    3.]]></description>
+</item></channel>
+</rss>

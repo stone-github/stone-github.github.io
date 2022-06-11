@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>hugo - Tag - stone-github Blog</title>
+        <link>https://stone-github.github.io/tags/hugo/</link>
+        <description>hugo - Tag - stone-github Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 14 Jan 2022 23:43:08 &#43;0800</lastBuildDate><atom:link href="https://stone-github.github.io/tags/hugo/" rel="self" type="application/rss+xml" /><item>
+    <title>my first post</title>
+    <link>https://stone-github.github.io/posts/my_first_post/</link>
+    <pubDate>Fri, 14 Jan 2022 23:43:08 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://stone-github.github.io/posts/my_first_post/</guid>
+    <description><![CDATA[add a chapter some content]]></description>
+</item></channel>
+</rss>

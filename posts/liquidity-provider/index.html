@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Liquidity Provider以及Impermanent loss分析 - stone-github Blog</title><meta name="Description" content="About LoveIt Theme"><meta property="og:title" content="Liquidity Provider以及Impermanent loss分析" />
+<meta property="og:description" content="1. 背景 为了实现去中心化交易平台（decentralize exchange），交易平台需要有一个流动资金池（Liquidity Pool）。由于交易平台的功能就是币币交易，因此该资金池内需要有交易的两种货币，比如10个BNB和200个CAKE。当一个需要CAKE币的人手上有BNB的时候，就把自己的BNB送入流动资金池内，然后取出对应的CAKE。
+进行币币交易的人需要缴纳一定的手续费给流动资金池。这些手续费就按比例分配给流动资金池中的每一个提供者（Liquidity Provider）
+2. 流动资金池分析 在上面的例子中可以看到流动资金池的两种货币的数量会发生变化。实际上，正是资金池内两种货币的数量发生了变化，因此导致了币币交易之间的汇率不同。
+举例来说，本来一个流动资金池内两种货币有200个CAKE和10个BNB，这个时候1个BNB值20个CAKE。现在有一个人想换20个CAKE，他将一个BNB放入流动资金池，然后从中取出20个CAKE。现在流动资金池内有180个CAKE和11个BNB，那么这时1个BNB值16.4个CAKE。
+上面的例子夸张的突出了汇率的变化，在实际交易过程中每一笔交易相较于流动资金池的总量都不足以引起汇率的变化（就像股票市场上一两个散户的交易不会影响股价）。
+流动资金池在实际交易过程中会符合XYK原则，也就是说流动资金池内两种货币的数量X、Y满足$X \times Y = K$，其中K是常数。也就是说货币数量X和Y满足反比例函数的关系，如下图。每一次交易就是一次在该曲线上的移动。但是由于每次的交易数量都非常小，因此在使用极限的思想可以认为每次交易的汇率都是当前点的斜率。
+3. 收益分析 当加密货币的持有者选择将资金放入流动资金池时可以赚取手续费作为回报，通常这个回报非常高，年收益高达50%-300%。但是当资金进入流动资金池时，存入的数量和取出来的数量会不等（从上面的例子可以看出），此外取出来的加密货币对应法币的价值也有差异，这些变化带来的损失就是永久损失（permanent loss）。
+计算永久损失的过程比较复杂，可以直接跳到最后查看结论。
+3.1 收益计算 为了量化非永久损失，假设投资者放入了A货币X个和B货币Y个。此时1个A货币的价值为$x_p$个美元，1个B货币的价值为 $y_p$个美元。那么投资者的总资产为$T = X x_p &#43; Y y_p$。所有都的变量满足如下的等式：
+$$\begin{cases}XY = K\\Xx_p = Yy_p\end{cases}$$解得：
+$$\begin{cases}X = \sqrt{\frac{K y_p}{x_p}}\\Y = \sqrt{\frac{K x_p}{y_p}}\\T = 2\sqrt{Kx_p y_p}\\\end{cases}$$之后经过变化，如果1个A货币的价格变为$x_p&#39;$美元，1个B货币的价格变为$y_p&#39;$个美元。那么同样联立类似的方程组，解得：$$\begin{cases}X&#39; = \sqrt{\frac{K y_p&#39;}{x_p&#39;}}\\Y&#39; = \sqrt{\frac{K x_p&#39;}{y_p&#39;}}\\T&#39; = 2\sqrt{Kx_p&#39; y_p&#39;}\\\end{cases}$$如果这个人不把资金放入流动资金池，那么他的总资产如下：$$\begin{cases}X&#39;&#39; = \sqrt{\frac{K y_p}{x_p}}\\Y&#39;&#39; = \sqrt{\frac{K x_p}{y_p}}\\T&#39;&#39; = \frac{\sqrt{K}( x_p&#39; y_p &#43; y_p&#39; x_p)}{\sqrt{x_p y_p}}\end{cases}$$将总资产的变化总结成一下表格：    投入流动资金池 不投入流动资金池     开始资金 $T = 2\sqrt{Kx_p y_p}$ $T = 2\sqrt{Kx_p y_p}$   结束资金 $T&rsquo; = 2\sqrt{Kx_p&rsquo; y_p&rsquo;}$ $T&rsquo;&rsquo; = \frac{\sqrt{K}( x_p&rsquo; y_p &#43; y_p&rsquo; x_p)}{\sqrt{x_p y_p}}$   资金比值 $ r = \frac{\sqrt{x_p&rsquo; y_p&rsquo;}}{\sqrt{x_p y_p}}$ $r = \frac{x_p&rsquo; y_p &#43; y_p&rsquo; x_p}{2x_py_p}$    3." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://stone-github.github.io/posts/liquidity-provider/" />
+<meta property="og:image" content="https://stone-github.github.io/logo.png"/>
+<meta property="article:published_time" content="2022-01-24T17:53:08+08:00" />
+<meta property="article:modified_time" content="2022-01-24T17:53:08+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://stone-github.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Liquidity Provider以及Impermanent loss分析"/>
+<meta name="twitter:description" content="1. 背景 为了实现去中心化交易平台（decentralize exchange），交易平台需要有一个流动资金池（Liquidity Pool）。由于交易平台的功能就是币币交易，因此该资金池内需要有交易的两种货币，比如10个BNB和200个CAKE。当一个需要CAKE币的人手上有BNB的时候，就把自己的BNB送入流动资金池内，然后取出对应的CAKE。
+进行币币交易的人需要缴纳一定的手续费给流动资金池。这些手续费就按比例分配给流动资金池中的每一个提供者（Liquidity Provider）
+2. 流动资金池分析 在上面的例子中可以看到流动资金池的两种货币的数量会发生变化。实际上，正是资金池内两种货币的数量发生了变化，因此导致了币币交易之间的汇率不同。
+举例来说，本来一个流动资金池内两种货币有200个CAKE和10个BNB，这个时候1个BNB值20个CAKE。现在有一个人想换20个CAKE，他将一个BNB放入流动资金池，然后从中取出20个CAKE。现在流动资金池内有180个CAKE和11个BNB，那么这时1个BNB值16.4个CAKE。
+上面的例子夸张的突出了汇率的变化，在实际交易过程中每一笔交易相较于流动资金池的总量都不足以引起汇率的变化（就像股票市场上一两个散户的交易不会影响股价）。
+流动资金池在实际交易过程中会符合XYK原则，也就是说流动资金池内两种货币的数量X、Y满足$X \times Y = K$，其中K是常数。也就是说货币数量X和Y满足反比例函数的关系，如下图。每一次交易就是一次在该曲线上的移动。但是由于每次的交易数量都非常小，因此在使用极限的思想可以认为每次交易的汇率都是当前点的斜率。
+3. 收益分析 当加密货币的持有者选择将资金放入流动资金池时可以赚取手续费作为回报，通常这个回报非常高，年收益高达50%-300%。但是当资金进入流动资金池时，存入的数量和取出来的数量会不等（从上面的例子可以看出），此外取出来的加密货币对应法币的价值也有差异，这些变化带来的损失就是永久损失（permanent loss）。
+计算永久损失的过程比较复杂，可以直接跳到最后查看结论。
+3.1 收益计算 为了量化非永久损失，假设投资者放入了A货币X个和B货币Y个。此时1个A货币的价值为$x_p$个美元，1个B货币的价值为 $y_p$个美元。那么投资者的总资产为$T = X x_p &#43; Y y_p$。所有都的变量满足如下的等式：
+$$\begin{cases}XY = K\\Xx_p = Yy_p\end{cases}$$解得：
+$$\begin{cases}X = \sqrt{\frac{K y_p}{x_p}}\\Y = \sqrt{\frac{K x_p}{y_p}}\\T = 2\sqrt{Kx_p y_p}\\\end{cases}$$之后经过变化，如果1个A货币的价格变为$x_p&#39;$美元，1个B货币的价格变为$y_p&#39;$个美元。那么同样联立类似的方程组，解得：$$\begin{cases}X&#39; = \sqrt{\frac{K y_p&#39;}{x_p&#39;}}\\Y&#39; = \sqrt{\frac{K x_p&#39;}{y_p&#39;}}\\T&#39; = 2\sqrt{Kx_p&#39; y_p&#39;}\\\end{cases}$$如果这个人不把资金放入流动资金池，那么他的总资产如下：$$\begin{cases}X&#39;&#39; = \sqrt{\frac{K y_p}{x_p}}\\Y&#39;&#39; = \sqrt{\frac{K x_p}{y_p}}\\T&#39;&#39; = \frac{\sqrt{K}( x_p&#39; y_p &#43; y_p&#39; x_p)}{\sqrt{x_p y_p}}\end{cases}$$将总资产的变化总结成一下表格：    投入流动资金池 不投入流动资金池     开始资金 $T = 2\sqrt{Kx_p y_p}$ $T = 2\sqrt{Kx_p y_p}$   结束资金 $T&rsquo; = 2\sqrt{Kx_p&rsquo; y_p&rsquo;}$ $T&rsquo;&rsquo; = \frac{\sqrt{K}( x_p&rsquo; y_p &#43; y_p&rsquo; x_p)}{\sqrt{x_p y_p}}$   资金比值 $ r = \frac{\sqrt{x_p&rsquo; y_p&rsquo;}}{\sqrt{x_p y_p}}$ $r = \frac{x_p&rsquo; y_p &#43; y_p&rsquo; x_p}{2x_py_p}$    3."/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://stone-github.github.io/posts/liquidity-provider/" /><link rel="next" href="https://stone-github.github.io/posts/metamask/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Liquidity Provider以及Impermanent loss分析",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/stone-github.github.io\/posts\/liquidity-provider\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/stone-github.github.io\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "defi, 概念","wordcount":  256 ,
+        "url": "https:\/\/stone-github.github.io\/posts\/liquidity-provider\/","datePublished": "2022-01-24T17:53:08+08:00","dateModified": "2022-01-24T17:53:08+08:00","publisher": {
+            "@type": "Organization",
+            "name": "stone"},"author": {
+                "@type": "Person",
+                "name": "stone"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="stone-github Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>Stone Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/categories/documentation/"> Docs </a><a class="menu-item" href="https://github.com/stone-github" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="stone-github Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>Stone Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/categories/documentation/" title="">Docs</a><a class="menu-item" href="https://github.com/stone-github" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Liquidity Provider以及Impermanent loss分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>stone</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blog/"><i class="far fa-folder fa-fw"></i>blog</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-24">2022-01-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;256 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-背景">1. 背景</a></li>
+        <li><a href="#2-流动资金池分析">2. 流动资金池分析</a></li>
+        <li><a href="#3-收益分析">3. 收益分析</a>
+          <ul>
+            <li><a href="#31-收益计算">3.1 收益计算</a></li>
+            <li><a href="#32-化简">3.2 化简</a></li>
+            <li><a href="#33-升值分析">3.3 升值分析</a></li>
+            <li><a href="#34-贬值分析">3.4 贬值分析</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-结论">4. 结论</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="1-背景">1. 背景</h3>
+<p>为了实现去中心化交易平台（decentralize exchange），交易平台需要有一个流动资金池（Liquidity Pool）。由于交易平台的功能就是币币交易，因此该资金池内需要有交易的两种货币，比如10个BNB和200个CAKE。当一个需要CAKE币的人手上有BNB的时候，就把自己的BNB送入流动资金池内，然后取出对应的CAKE。</p>
+<p>进行币币交易的人需要缴纳一定的手续费给流动资金池。这些手续费就按比例分配给流动资金池中的每一个提供者（Liquidity Provider）</p>
+<h3 id="2-流动资金池分析">2. 流动资金池分析</h3>
+<p>在上面的例子中可以看到流动资金池的两种货币的数量会发生变化。实际上，正是资金池内两种货币的数量发生了变化，因此导致了币币交易之间的汇率不同。</p>
+<p>举例来说，本来一个流动资金池内两种货币有200个CAKE和10个BNB，这个时候1个BNB值20个CAKE。现在有一个人想换20个CAKE，他将一个BNB放入流动资金池，然后从中取出20个CAKE。现在流动资金池内有180个CAKE和11个BNB，那么这时1个BNB值16.4个CAKE。</p>
+<p>上面的例子夸张的突出了汇率的变化，在实际交易过程中每一笔交易相较于流动资金池的总量都不足以引起汇率的变化（就像股票市场上一两个散户的交易不会影响股价）。</p>
+<p>流动资金池在实际交易过程中会符合<strong>XYK原则</strong>，也就是说流动资金池内两种货币的数量X、Y满足$X \times Y = K$，其中K是常数。也就是说货币数量X和Y满足反比例函数的关系，如下图。每一次交易就是一次在该曲线上的移动。但是由于每次的交易数量都非常小，因此在使用极限的思想可以认为每次交易的汇率都是当前点的斜率。</p>
+<p><img src="./pic/lp_xyk.png" alt="lp_xyk" style="zoom: 50%;" /></p>
+<h3 id="3-收益分析">3. 收益分析</h3>
+<p>当加密货币的持有者选择将资金放入流动资金池时可以赚取手续费作为回报，通常这个回报非常高，年收益高达50%-300%。但是当资金进入流动资金池时，存入的数量和取出来的数量会不等（从上面的例子可以看出），此外取出来的加密货币对应法币的价值也有差异，这些变化带来的损失就是永久损失（permanent loss）。</p>
+<p>计算永久损失的过程比较复杂，可以直接跳到最后查看结论。</p>
+<h4 id="31-收益计算">3.1 收益计算</h4>
+<p>为了量化非永久损失，假设投资者放入了A货币X个和B货币Y个。此时1个A货币的价值为$x_p$个美元，1个B货币的价值为 $y_p$个美元。那么投资者的总资产为$T = X x_p + Y y_p$。所有都的变量满足如下的等式：</p>
+<div>$$
+\begin{cases}
+XY = K\\
+Xx_p = Yy_p
+\end{cases}
+$$</div>
+<p>解得：</p>
+<div>$$
+\begin{cases}
+X = \sqrt{\frac{K y_p}{x_p}}\\
+Y = \sqrt{\frac{K x_p}{y_p}}\\
+T = 2\sqrt{Kx_p y_p}\\
+\end{cases}
+$$</div>
+之后经过变化，如果1个A货币的价格变为$x_p'$美元，1个B货币的价格变为$y_p'$个美元。那么同样联立类似的方程组，解得：
+<div>$$
+\begin{cases}
+X' = \sqrt{\frac{K y_p'}{x_p'}}\\
+Y' = \sqrt{\frac{K x_p'}{y_p'}}\\
+T' = 2\sqrt{Kx_p' y_p'}\\
+\end{cases}
+$$</div>
+如果这个人不把资金放入流动资金池，那么他的总资产如下：
+<div>$$
+\begin{cases}
+X'' = \sqrt{\frac{K y_p}{x_p}}\\
+Y'' = \sqrt{\frac{K x_p}{y_p}}\\
+T'' = \frac{\sqrt{K}( x_p' y_p + y_p' x_p)}{\sqrt{x_p y_p}}
+\end{cases}
+$$</div>
+将总资产的变化总结成一下表格：
+<table>
+<thead>
+<tr>
+<th></th>
+<th>投入流动资金池</th>
+<th>不投入流动资金池</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>开始资金</td>
+<td>$T = 2\sqrt{Kx_p y_p}$</td>
+<td>$T = 2\sqrt{Kx_p y_p}$</td>
+</tr>
+<tr>
+<td>结束资金</td>
+<td>$T&rsquo; = 2\sqrt{Kx_p&rsquo; y_p&rsquo;}$</td>
+<td>$T&rsquo;&rsquo; = \frac{\sqrt{K}( x_p&rsquo; y_p + y_p&rsquo; x_p)}{\sqrt{x_p y_p}}$</td>
+</tr>
+<tr>
+<td>资金比值</td>
+<td>$ r = \frac{\sqrt{x_p&rsquo; y_p&rsquo;}}{\sqrt{x_p y_p}}$</td>
+<td>$r = \frac{x_p&rsquo; y_p + y_p&rsquo; x_p}{2x_py_p}$</td>
+</tr>
+</tbody>
+</table>
+<h4 id="32-化简">3.2 化简</h4>
+<p>为了化完善并且化简模型，做出如下假设：</p>
+<ol>
+<li>
+<p>手续费收回报率为i；</p>
+</li>
+<li>
+<p>假设B货币为某种等价货币（例如USDT），即$y_p = y_p&rsquo; = 1$；</p>
+</li>
+<li>
+<p>设A货币的涨幅为$t = x_p&rsquo; / x_p - 1$</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>投入流动资金池</th>
+<th>不投入流动资金池</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>开始资金</td>
+<td>$T = 2\sqrt{Kx_p}$</td>
+<td>$T = 2\sqrt{Kx_p}$</td>
+</tr>
+<tr>
+<td>结束资金</td>
+<td>$T&rsquo; = 2\sqrt{Kx_p&rsquo;} + 2i\sqrt{K x_p}$</td>
+<td>$T&rsquo;&rsquo; = \frac{\sqrt{K}( x_p'+ x_p)}{\sqrt{x_p}}$</td>
+</tr>
+<tr>
+<td>资金比值</td>
+<td>$ r = \frac{\sqrt{x_p&rsquo;} + i\sqrt {x_p}}{\sqrt{x_p}} = \sqrt{ t + 1} + i$</td>
+<td>$r = \frac{x_p&rsquo; +  x_p}{2x_p} = \frac{t}{2} + 1$</td>
+</tr>
+</tbody>
+</table>
+<h4 id="33-升值分析">3.3 升值分析</h4>
+<p>可以看到上面的情况并没有考虑手续费的收入，此时不妨设手续费的收入为$2i\sqrt{Kx_p}$。那么为了维持保证在货币A升值的情况下，收益没有减少就要使下面等式成立：
+$$
+2\sqrt{Kx_p&rsquo;} + 2i\sqrt{Kx_p} = \frac{\sqrt{K}(x_p&rsquo; + x_p)}{\sqrt{x_p}}
+$$
+解得：$i = \frac{t^2}{2}$，其中$t = x_p&rsquo; / x_p - 1$也就是涨幅。</p>
+<h4 id="34-贬值分析">3.4 贬值分析</h4>
+<p>这里，我们思考如果A货币贬值，手续费要多高才能保证本金不受损。同样我们考虑手续费为$2i\sqrt{Kx_p}$。想要本金不受损，也就是最后的收益大于等于最开始的本金：
+$$
+2\sqrt{Kx_p&rsquo;} + 2i\sqrt{Kx_p} =2\sqrt{Kx_p}
+$$
+解得：$i = 1 - \frac{\sqrt{x_p&rsquo;}}{\sqrt{x_p}} = 1- \sqrt{t + 1}$，其中$t = x_p&rsquo; /x_p - 1$也就是涨幅。</p>
+<h3 id="4-结论">4. 结论</h3>
+<p>根据以上分析可以得到：如果将两种货币放入资金池。将其中一种作为标的物（例如USDT），另一种货币的涨幅为$t$（可为正数或者负数）；并且手续费回报率为$i$，则：</p>
+<ol>
+<li>
+<p>前后资金比值$r = \sqrt{t + 1} + r$</p>
+</li>
+<li>
+<p>只要收益率$r$大于$\frac{t^2}{2}$，即可超过在增值期间直接持有两种货币的收益。</p>
+</li>
+<li>
+<p>只要收益率$r$大于$1-\sqrt{t+1}$，即可弥补在贬值期间货币的亏损。</p>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-01-24</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/liquidity-provider/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/defi/">defi</a>,&nbsp;<a href="/tags/%E6%A6%82%E5%BF%B5/">概念</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/posts/metamask/" class="next" rel="next" title="MetaMask入门：安装和配置">MetaMask入门：安装和配置<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="utterances"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"stone-github/HugoTalk"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
