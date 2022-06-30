@@ -5,53 +5,53 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>MetaMask实践：在测试网络上交易 - stone-github Blog</title><meta name="Description" content="About LoveIt Theme"><meta property="og:title" content="MetaMask实践：在测试网络上交易" />
-<meta property="og:description" content="目前以太坊的手续费（gas fee）过高，在去中心化交易所uniswap进行一次交易的费用经常要$50，对于资金量小于10万刀的使用者根本不合适。然而，很多优秀的应用只在以太坊上发行，例如uniswap、MakerDao等等。想要体验这些开创性、以太坊独有的应用又不想浪费那么多手续费，不妨尝试使用以太坊的测试网络。
-就算有大量资金，在第一次使用新的应用的时候也难免要先使用少量资金学习一下如何操作，这就是双倍的手续费。因此建议所有新手以及英文文档没看懂的使用者先在测试网络上测试清楚不同应用的功能，再到真的网络上进行使用，以免操作失误损失大量资金。
-1. 测试网络 老版的MetaMask是自带测试网络的，直接切换过去即可。新版的MetaMask需要打开网络选项，点击show network才可以看到测试网络。
-打开测试网络之后可以选择的测试网络很多，我们就选择第一个测试网络Ropsten Testnet即可，其他的测试网络使用起来基本相同。
-2. 获取代币 测试网络可以找其他人要免费的以太币。例如Ropsten Testnet上面可以在Ropsten testnet faucet领取代币，只需将自己的地址输入即可。
-如果使用的是其他的测试网络，则在google里面搜索测试网络的名字，基本上以faucet结尾的都是可以免费领取以太币的地方。
-要注意的是，测试网络的以太币没有任何价值。千万不要向其他人购买测试网络上的以太币，这些以太币都是免费的。
-3. 使用以太坊上的应用 现在有了免费的以太币我们就可以去交易。以uniswap为例，我们直接去uniswap的官网上连接自己的钱包就可以进行交易了。当我们使用的是测试网络的时候，uniswap会在右上角显示出我们使用的是测试网络。
-当然，不是所有应用网站都能支持测试网络，当你发现在测试网络上不能使用某个应用可能是这个网站不支持，并不是测试网络不支持。可以去eth explorer类似的地方直接调用区块链上的函数来使用这个应用。" />
+        <title>BNB介绍 - stone-github Blog</title><meta name="Description" content="About LoveIt Theme"><meta property="og:title" content="BNB介绍" />
+<meta property="og:description" content="BNB是币安交易所推出的货币，该加密货币是币安交易所的重要资产和给投资者的重要服务。我会从货币的基本流通量和销毁机制讨论BNB。之后可以讨论一些BNB的实际用途。
+1. BNB的流通量 BNB的总流通量为200,000,000（也就是两亿个）。在首次ICO之后BNB开始每个季度进行BNB的销毁。截止2022年6月9日，已经有36,680,739个BNB被销毁，还剩下大约163,000,000个BNB。目前BNB的销毁方式主要有两种，一种是季度销毁，另一种是手续费销毁（BEP95）。
+2. BNB的销毁 在刚开始销毁时，BNB每个季度将利润的20%用来回购BNB并且进行销毁，直到销毁了50%的BNB总流通量为止。由于币安担心BNB被SEC当作债券进行审查，因此在2022年第一个季度使用了一个新的公式对BNB进行销毁。该公式如下： $$ B = \frac{N \times 1000}{P &#43; K} $$ 其中B该季度的总销毁量，N表示该季度BSC产出的总区块数量（大约为2,592,000），P表示平均的BNB价格（从ChainLink中获得，每10,000个区块采样一次），K表示一个常数，并且可以根据BEP进行修改，初始值为1000。这种季度的销毁方式同样在销毁了50%的BNB之后就会停止，也就是说BNB最后的流通量为100,000,000。该销毁方式跟价格强相关，因此假设K和N不变的情况下每个季度的销毁量和价格的关系如下图：
+目前BNB每个季度的销毁速度保守估计为1,500,000，相比起目前的总流通量163,000,000还有42个季度（约10年）才能达成目标。
+另一个销毁BNB的机制是将BSC上的手续费一部分进行销毁（BEP20）。该机制会在销毁了50%的BNB之后持续销毁。但是该机制销毁的速度非常慢，在实时显示网站上显示过去七天才销毁了2,167个BNB，差不多一天销毁300个BNB的样子。
+3. BNB的用途 在介绍完BNB的基础属性之后我们关注一下BNB的一些用途。首先BNB最重要的用途是在币安交易时当作手续费使用会降低25%的手续费。此外持有一定数量的BNB可以获取币安打新币的资格（本人从来不用）。具体BNB的特权和用途见币安的官方博客。
+官方博客：
+新销毁机制介绍：https://www.binance.com/en/blog/ecosystem/introducing-bnb-autoburn-a-new-protocol-for-the-quarterly-bnb-burn-421499824684903205
+实时显示销毁BNB：https://bnbburn.info/" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://stone-github.github.io/posts/advance_metamask/" />
+<meta property="og:url" content="https://stone-github.github.io/posts/bnb/" />
 <meta property="og:image" content="https://stone-github.github.io/logo.png"/>
-<meta property="article:published_time" content="2022-02-05T23:20:08+08:00" />
-<meta property="article:modified_time" content="2022-02-05T23:20:08+08:00" />
+<meta property="article:published_time" content="2022-06-30T08:20:08+08:00" />
+<meta property="article:modified_time" content="2022-06-30T08:20:08+08:00" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://stone-github.github.io/logo.png"/>
 
-<meta name="twitter:title" content="MetaMask实践：在测试网络上交易"/>
-<meta name="twitter:description" content="目前以太坊的手续费（gas fee）过高，在去中心化交易所uniswap进行一次交易的费用经常要$50，对于资金量小于10万刀的使用者根本不合适。然而，很多优秀的应用只在以太坊上发行，例如uniswap、MakerDao等等。想要体验这些开创性、以太坊独有的应用又不想浪费那么多手续费，不妨尝试使用以太坊的测试网络。
-就算有大量资金，在第一次使用新的应用的时候也难免要先使用少量资金学习一下如何操作，这就是双倍的手续费。因此建议所有新手以及英文文档没看懂的使用者先在测试网络上测试清楚不同应用的功能，再到真的网络上进行使用，以免操作失误损失大量资金。
-1. 测试网络 老版的MetaMask是自带测试网络的，直接切换过去即可。新版的MetaMask需要打开网络选项，点击show network才可以看到测试网络。
-打开测试网络之后可以选择的测试网络很多，我们就选择第一个测试网络Ropsten Testnet即可，其他的测试网络使用起来基本相同。
-2. 获取代币 测试网络可以找其他人要免费的以太币。例如Ropsten Testnet上面可以在Ropsten testnet faucet领取代币，只需将自己的地址输入即可。
-如果使用的是其他的测试网络，则在google里面搜索测试网络的名字，基本上以faucet结尾的都是可以免费领取以太币的地方。
-要注意的是，测试网络的以太币没有任何价值。千万不要向其他人购买测试网络上的以太币，这些以太币都是免费的。
-3. 使用以太坊上的应用 现在有了免费的以太币我们就可以去交易。以uniswap为例，我们直接去uniswap的官网上连接自己的钱包就可以进行交易了。当我们使用的是测试网络的时候，uniswap会在右上角显示出我们使用的是测试网络。
-当然，不是所有应用网站都能支持测试网络，当你发现在测试网络上不能使用某个应用可能是这个网站不支持，并不是测试网络不支持。可以去eth explorer类似的地方直接调用区块链上的函数来使用这个应用。"/>
+<meta name="twitter:title" content="BNB介绍"/>
+<meta name="twitter:description" content="BNB是币安交易所推出的货币，该加密货币是币安交易所的重要资产和给投资者的重要服务。我会从货币的基本流通量和销毁机制讨论BNB。之后可以讨论一些BNB的实际用途。
+1. BNB的流通量 BNB的总流通量为200,000,000（也就是两亿个）。在首次ICO之后BNB开始每个季度进行BNB的销毁。截止2022年6月9日，已经有36,680,739个BNB被销毁，还剩下大约163,000,000个BNB。目前BNB的销毁方式主要有两种，一种是季度销毁，另一种是手续费销毁（BEP95）。
+2. BNB的销毁 在刚开始销毁时，BNB每个季度将利润的20%用来回购BNB并且进行销毁，直到销毁了50%的BNB总流通量为止。由于币安担心BNB被SEC当作债券进行审查，因此在2022年第一个季度使用了一个新的公式对BNB进行销毁。该公式如下： $$ B = \frac{N \times 1000}{P &#43; K} $$ 其中B该季度的总销毁量，N表示该季度BSC产出的总区块数量（大约为2,592,000），P表示平均的BNB价格（从ChainLink中获得，每10,000个区块采样一次），K表示一个常数，并且可以根据BEP进行修改，初始值为1000。这种季度的销毁方式同样在销毁了50%的BNB之后就会停止，也就是说BNB最后的流通量为100,000,000。该销毁方式跟价格强相关，因此假设K和N不变的情况下每个季度的销毁量和价格的关系如下图：
+目前BNB每个季度的销毁速度保守估计为1,500,000，相比起目前的总流通量163,000,000还有42个季度（约10年）才能达成目标。
+另一个销毁BNB的机制是将BSC上的手续费一部分进行销毁（BEP20）。该机制会在销毁了50%的BNB之后持续销毁。但是该机制销毁的速度非常慢，在实时显示网站上显示过去七天才销毁了2,167个BNB，差不多一天销毁300个BNB的样子。
+3. BNB的用途 在介绍完BNB的基础属性之后我们关注一下BNB的一些用途。首先BNB最重要的用途是在币安交易时当作手续费使用会降低25%的手续费。此外持有一定数量的BNB可以获取币安打新币的资格（本人从来不用）。具体BNB的特权和用途见币安的官方博客。
+官方博客：
+新销毁机制介绍：https://www.binance.com/en/blog/ecosystem/introducing-bnb-autoburn-a-new-protocol-for-the-quarterly-bnb-burn-421499824684903205
+实时显示销毁BNB：https://bnbburn.info/"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://stone-github.github.io/posts/advance_metamask/" /><link rel="prev" href="https://stone-github.github.io/posts/binance/" /><link rel="next" href="https://stone-github.github.io/posts/chain_link_intro/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://stone-github.github.io/posts/bnb/" /><link rel="prev" href="https://stone-github.github.io/posts/anchor_leverage/" /><link rel="next" href="https://stone-github.github.io/posts/%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "MetaMask实践：在测试网络上交易",
+        "headline": "BNB介绍",
         "inLanguage": "en",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/stone-github.github.io\/posts\/advance_metamask\/"
+            "@id": "https:\/\/stone-github.github.io\/posts\/bnb\/"
         },"image": [{
                             "@type": "ImageObject",
                             "url": "https:\/\/stone-github.github.io\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "defi, 教程","wordcount":  22 ,
-        "url": "https:\/\/stone-github.github.io\/posts\/advance_metamask\/","datePublished": "2022-02-05T23:20:08+08:00","dateModified": "2022-02-05T23:20:08+08:00","publisher": {
+                        }],"genre": "posts","keywords": "defi","wordcount":  25 ,
+        "url": "https:\/\/stone-github.github.io\/posts\/bnb\/","datePublished": "2022-06-30T08:20:08+08:00","dateModified": "2022-06-30T08:20:08+08:00","publisher": {
             "@type": "Organization",
             "name": "stone"},"author": {
                 "@type": "Person",
@@ -125,9 +125,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">MetaMask实践：在测试网络上交易</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">BNB介绍</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>stone</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blog/"><i class="far fa-folder fa-fw"></i>blog</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-05">2022-02-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;22 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-30">2022-06-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;25 words&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -138,42 +138,43 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#1-测试网络">1. 测试网络</a></li>
-        <li><a href="#2-获取代币">2. 获取代币</a></li>
-        <li><a href="#3-使用以太坊上的应用">3. 使用以太坊上的应用</a></li>
+        <li><a href="#1-bnb的流通量">1. BNB的流通量</a></li>
+        <li><a href="#2-bnb的销毁">2. BNB的销毁</a></li>
+        <li><a href="#3-bnb的用途">3. BNB的用途</a></li>
       </ul>
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>目前以太坊的手续费（gas fee）过高，在去中心化交易所uniswap进行一次交易的费用经常要$50，对于资金量小于10万刀的使用者根本不合适。然而，很多优秀的应用只在以太坊上发行，例如uniswap、MakerDao等等。想要体验这些开创性、以太坊独有的应用又不想浪费那么多手续费，不妨尝试使用以太坊的测试网络。</p>
-<p>就算有大量资金，在第一次使用新的应用的时候也难免要先使用少量资金学习一下如何操作，这就是双倍的手续费。因此建议所有新手以及英文文档没看懂的使用者先在测试网络上测试清楚不同应用的功能，再到真的网络上进行使用，以免操作失误损失大量资金。</p>
-<h3 id="1-测试网络">1. 测试网络</h3>
-<p>老版的MetaMask是自带测试网络的，直接切换过去即可。新版的MetaMask需要打开网络选项，点击show network才可以看到测试网络。</p>
+            </div><div class="content" id="content"><p>BNB是币安交易所推出的货币，该加密货币是币安交易所的重要资产和给投资者的重要服务。我会从货币的基本流通量和销毁机制讨论BNB。之后可以讨论一些BNB的实际用途。</p>
+<h3 id="1-bnb的流通量">1. BNB的流通量</h3>
+<p>BNB的总流通量为200,000,000（也就是两亿个）。在首次ICO之后BNB开始每个季度进行BNB的销毁。截止2022年6月9日，已经有36,680,739个BNB被销毁，还剩下大约163,000,000个BNB。目前BNB的销毁方式主要有两种，一种是季度销毁，另一种是手续费销毁（BEP95）。</p>
+<h3 id="2-bnb的销毁">2. BNB的销毁</h3>
+<p>在刚开始销毁时，BNB每个季度将利润的20%用来回购BNB并且进行销毁，直到销毁了50%的BNB总流通量为止。由于币安担心BNB被SEC当作债券进行审查，因此在2022年第一个季度使用了一个新的公式对BNB进行销毁。该公式如下：
+$$
+B = \frac{N \times 1000}{P + K}
+$$
+其中B该季度的总销毁量，N表示该季度BSC产出的总区块数量（大约为2,592,000），P表示平均的BNB价格（从ChainLink中获得，每10,000个区块采样一次），K表示一个常数，并且可以根据BEP进行修改，初始值为1000。这种季度的销毁方式同样在销毁了50%的BNB之后就会停止，也就是说BNB最后的流通量为100,000,000。该销毁方式跟价格强相关，因此假设K和N不变的情况下每个季度的销毁量和价格的关系如下图：</p>
 <p align="center">
-<img src="pic/show.png" alt="show" style="zoom:60%;" />
+<img src="pic/burn.png" alt="show" style="zoom:60%;" />
 </p>
-<p>打开测试网络之后可以选择的测试网络很多，我们就选择第一个测试网络Ropsten Testnet即可，其他的测试网络使用起来基本相同。</p>
-<h3 id="2-获取代币">2. 获取代币</h3>
-<p>测试网络可以找其他人要免费的以太币。例如Ropsten Testnet上面可以在<a href="https://faucet.egorfine.com/" target="_blank" rel="noopener noreffer">Ropsten testnet faucet</a>领取代币，只需将自己的地址输入即可。</p>
-<p>如果使用的是其他的测试网络，则在google里面搜索测试网络的名字，基本上以faucet结尾的都是可以免费领取以太币的地方。</p>
-<p>要注意的是，测试网络的以太币<strong>没有任何价值</strong>。千万不要向其他人购买测试网络上的以太币，这些以太币都是免费的。</p>
-<h3 id="3-使用以太坊上的应用">3. 使用以太坊上的应用</h3>
-<p>现在有了免费的以太币我们就可以去交易。以uniswap为例，我们直接去uniswap的官网上连接自己的钱包就可以进行交易了。当我们使用的是测试网络的时候，uniswap会在右上角显示出我们使用的是测试网络。</p>
-<p align="center">
-<img src="pic/uniswap.png" alt="uniswap" style="zoom:60%;" />
-</p>
-<p>当然，不是所有应用网站都能支持测试网络，当你发现在测试网络上不能使用某个应用可能是这个网站不支持，并不是测试网络不支持。可以去eth explorer类似的地方直接调用区块链上的函数来使用这个应用。</p>
+<p>目前BNB每个季度的销毁速度保守估计为1,500,000，相比起目前的总流通量163,000,000还有42个季度（约10年）才能达成目标。</p>
+<p>另一个销毁BNB的机制是将BSC上的手续费一部分进行销毁（BEP20）。该机制会在销毁了50%的BNB之后持续销毁。但是该机制销毁的速度非常慢，在<a href="https://bnbburn.info/" target="_blank" rel="noopener noreffer">实时显示</a>网站上显示过去七天才销毁了2,167个BNB，差不多一天销毁300个BNB的样子。</p>
+<h3 id="3-bnb的用途">3. BNB的用途</h3>
+<p>在介绍完BNB的基础属性之后我们关注一下BNB的一些用途。首先BNB最重要的用途是在币安交易时当作手续费使用会降低25%的手续费。此外持有一定数量的BNB可以获取币安打新币的资格（本人从来不用）。具体BNB的特权和用途见币安的<a href="https://www.binance.com/en/bnb" target="_blank" rel="noopener noreffer">官方博客</a>。</p>
+<p><strong>官方博客</strong>：</p>
+<p>新销毁机制介绍：https://www.binance.com/en/blog/ecosystem/introducing-bnb-autoburn-a-new-protocol-for-the-quarterly-bnb-burn-421499824684903205</p>
+<p>实时显示销毁BNB：https://bnbburn.info/</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2022-02-05</span>
+                <span>Updated on 2022-06-30</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/posts/advance_metamask/index.md" target="_blank">Read Markdown</a>
+                            <a class="link-to-markdown" href="/posts/bnb/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
                 <span></span>
@@ -182,14 +183,14 @@
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/defi/">defi</a>,&nbsp;<a href="/tags/%E6%95%99%E7%A8%8B/">教程</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/defi/">defi</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/binance/" class="prev" rel="prev" title="币安（Binance）介绍"><i class="fas fa-angle-left fa-fw"></i>币安（Binance）介绍</a>
-            <a href="/posts/chain_link_intro/" class="next" rel="next" title="Chain Link入门">Chain Link入门<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/posts/anchor_leverage/" class="prev" rel="prev" title="Anchor杠杆"><i class="fas fa-angle-left fa-fw"></i>Anchor杠杆</a>
+            <a href="/posts/%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2/" class="next" rel="next" title="写在前面">写在前面<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="utterances"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.

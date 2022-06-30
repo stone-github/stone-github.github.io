@@ -3,7 +3,22 @@
         <title>defi - Tag - stone-github Blog</title>
         <link>https://stone-github.github.io/tags/defi/</link>
         <description>defi - Tag - stone-github Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 27 Feb 2022 08:53:08 &#43;0800</lastBuildDate><atom:link href="https://stone-github.github.io/tags/defi/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 30 Jun 2022 08:20:08 &#43;0800</lastBuildDate><atom:link href="https://stone-github.github.io/tags/defi/" rel="self" type="application/rss+xml" /><item>
+    <title>BNB介绍</title>
+    <link>https://stone-github.github.io/posts/bnb/</link>
+    <pubDate>Thu, 30 Jun 2022 08:20:08 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://stone-github.github.io/posts/bnb/</guid>
+    <description><![CDATA[BNB是币安交易所推出的货币，该加密货币是币安交易所的重要资产和给投资者的重要服务。我会从货币的基本流通量和销毁机制讨论BNB。之后可以讨论一些BNB的实际用途。
+1. BNB的流通量 BNB的总流通量为200,000,000（也就是两亿个）。在首次ICO之后BNB开始每个季度进行BNB的销毁。截止2022年6月9日，已经有36,680,739个BNB被销毁，还剩下大约163,000,000个BNB。目前BNB的销毁方式主要有两种，一种是季度销毁，另一种是手续费销毁（BEP95）。
+2. BNB的销毁 在刚开始销毁时，BNB每个季度将利润的20%用来回购BNB并且进行销毁，直到销毁了50%的BNB总流通量为止。由于币安担心BNB被SEC当作债券进行审查，因此在2022年第一个季度使用了一个新的公式对BNB进行销毁。该公式如下： $$ B = \frac{N \times 1000}{P + K} $$ 其中B该季度的总销毁量，N表示该季度BSC产出的总区块数量（大约为2,592,000），P表示平均的BNB价格（从ChainLink中获得，每10,000个区块采样一次），K表示一个常数，并且可以根据BEP进行修改，初始值为1000。这种季度的销毁方式同样在销毁了50%的BNB之后就会停止，也就是说BNB最后的流通量为100,000,000。该销毁方式跟价格强相关，因此假设K和N不变的情况下每个季度的销毁量和价格的关系如下图：
+目前BNB每个季度的销毁速度保守估计为1,500,000，相比起目前的总流通量163,000,000还有42个季度（约10年）才能达成目标。
+另一个销毁BNB的机制是将BSC上的手续费一部分进行销毁（BEP20）。该机制会在销毁了50%的BNB之后持续销毁。但是该机制销毁的速度非常慢，在实时显示网站上显示过去七天才销毁了2,167个BNB，差不多一天销毁300个BNB的样子。
+3. BNB的用途 在介绍完BNB的基础属性之后我们关注一下BNB的一些用途。首先BNB最重要的用途是在币安交易时当作手续费使用会降低25%的手续费。此外持有一定数量的BNB可以获取币安打新币的资格（本人从来不用）。具体BNB的特权和用途见币安的官方博客。
+官方博客：
+新销毁机制介绍：https://www.binance.com/en/blog/ecosystem/introducing-bnb-autoburn-a-new-protocol-for-the-quarterly-bnb-burn-421499824684903205
+实时显示销毁BNB：https://bnbburn.info/]]></description>
+</item><item>
     <title>Anchor杠杆</title>
     <link>https://stone-github.github.io/posts/anchor_leverage/</link>
     <pubDate>Sun, 27 Feb 2022 08:53:08 &#43;0800</pubDate>
@@ -28,6 +43,21 @@
 知道了CDR也就可以讨论能发行的MAI数量和清算规则。在创建Vault时，如下界面会显示出清算的CDR，也就是说当CDR到达了$150\%$时质押的Matic就会被清算。清算也就是说再也拿不回来了，被平台收走了。也就是说释放的MAI数量必须小于质押资产量除以$CDR_{mim}$，以Matic为例公式如下： $$ n_{mai} &lt; (n_matic * P_matic)/ CDR_{mim} $$
 3. 贷款奖励 为了激励平台的使用者发行MAI，因此平台会对使用者进行一些奖励。以Matic的质押金库为例，CDR在$170\%-420\%$之间平台会根据借出的MAI奖励APY为$12.97\%$的Qi（注意这个APY是根据借出的MAi来计算的）。具体来说如果质押了100刀的Matic那么可以借出$24-58$个MAI，可以获得奖励。
 发放的Qi会直接空投到钱包中，这一点非常方便。]]></description>
+</item><item>
+    <title>MetaMask实践：在测试网络上交易</title>
+    <link>https://stone-github.github.io/posts/advance_metamask/</link>
+    <pubDate>Sat, 05 Feb 2022 23:20:08 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://stone-github.github.io/posts/advance_metamask/</guid>
+    <description><![CDATA[目前以太坊的手续费（gas fee）过高，在去中心化交易所uniswap进行一次交易的费用经常要$50，对于资金量小于10万刀的使用者根本不合适。然而，很多优秀的应用只在以太坊上发行，例如uniswap、MakerDao等等。想要体验这些开创性、以太坊独有的应用又不想浪费那么多手续费，不妨尝试使用以太坊的测试网络。
+就算有大量资金，在第一次使用新的应用的时候也难免要先使用少量资金学习一下如何操作，这就是双倍的手续费。因此建议所有新手以及英文文档没看懂的使用者先在测试网络上测试清楚不同应用的功能，再到真的网络上进行使用，以免操作失误损失大量资金。
+1. 测试网络 老版的MetaMask是自带测试网络的，直接切换过去即可。新版的MetaMask需要打开网络选项，点击show network才可以看到测试网络。
+打开测试网络之后可以选择的测试网络很多，我们就选择第一个测试网络Ropsten Testnet即可，其他的测试网络使用起来基本相同。
+2. 获取代币 测试网络可以找其他人要免费的以太币。例如Ropsten Testnet上面可以在Ropsten testnet faucet领取代币，只需将自己的地址输入即可。
+如果使用的是其他的测试网络，则在google里面搜索测试网络的名字，基本上以faucet结尾的都是可以免费领取以太币的地方。
+要注意的是，测试网络的以太币没有任何价值。千万不要向其他人购买测试网络上的以太币，这些以太币都是免费的。
+3. 使用以太坊上的应用 现在有了免费的以太币我们就可以去交易。以uniswap为例，我们直接去uniswap的官网上连接自己的钱包就可以进行交易了。当我们使用的是测试网络的时候，uniswap会在右上角显示出我们使用的是测试网络。
+当然，不是所有应用网站都能支持测试网络，当你发现在测试网络上不能使用某个应用可能是这个网站不支持，并不是测试网络不支持。可以去eth explorer类似的地方直接调用区块链上的函数来使用这个应用。]]></description>
 </item><item>
     <title>MetaMask入门：安装和配置</title>
     <link>https://stone-github.github.io/posts/metamask/</link>
